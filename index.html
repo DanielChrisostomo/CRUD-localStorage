@@ -1,0 +1,91 @@
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./css/style.css">
+  <script src="./js/script.js" defer></script>
+  <title>CRUD</title>
+</head>
+
+<body>
+  <main class="main">
+    <div class="titulo-container">
+      <h1 class="titulo">Cadastro de Clientes</h1>
+      <a class="cadastro" id="cadastrarCliente">Novo Cadastro</a>
+    </div>
+    <table id="tableClient" class="table-container">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>E-mail</th>
+          <th>Celular</th>
+          <th>Cidade</th>
+          <th>Ação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Maria Fernanda</td>
+          <td>maria@gmail.com</td>
+          <td>(11) 99999-1111</td>
+          <td>Rio Grande</td>
+          <td>
+            <button type="button" class="button green">editar</button>
+            <button type="button" class="button red">excluir</button>
+          </td>
+        </tr>
+        <tr>
+          <td>João Carlos</td>
+          <td>joao@gmail.com</td>
+          <td>(11) 11111-9999</td>
+          <td>São Paulo</td>
+          <td>
+            <button type="button" class="button green">editar</button>
+            <button type="button" class="button red">excluir</button>
+          </td>
+        </tr>
+        <tr>
+          <td>Alvaro Dias</td>
+          <td>alvaro@gmail.com</td>
+          <td>(11) 44444-5555</td>
+          <td>Florianópolis</td>
+          <td>
+            <button type="button" class="button green">editar</button>
+            <button type="button" class="button red">excluir</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="modal" id="modal">
+      <div class="modal-content">
+        <header class="modal-header">
+          <h2>Novo Cliente</h2>
+          <span class="modal-close" id="modalClose">&#10006;</span>
+        </header>
+        <form id="form" class="modal-form">
+          <input id="nome" type="text" class="modal-field" placeholder="Nome do Cliente" required>
+          <input id="email" class="modal-field" placeholder="e-mail do Cliente" required>
+          <input id="celular" class="modal-field" placeholder="Celular do Cliente" required>
+          <input id="cidade" class="modal-field" placeholder="Cidade do Cliente" required>
+        </form>
+        <footer class="modal-footer">
+          <button id="salvar" class="button green">Salvar</button>
+          <button id="cancelar" class="button blue">Cancelar</button>
+        </footer>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    Copyright &copy; Daniel Chrisostomo
+  </footer>
+</body>
+
+</html>
