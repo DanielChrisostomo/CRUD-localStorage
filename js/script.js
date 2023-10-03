@@ -6,7 +6,7 @@ const container = document.querySelector("#modal");
 function toggleModal(e) {
   // e.preventDefault();
   container.classList.toggle("active");
-  // clearInput();
+  clearInput();
 }
 
 function fecharModal(event) {
@@ -39,3 +39,28 @@ const createClient = (client) => {
   dbClient.push(client);
   setLocalStorage(dbClient);
 };
+
+// 2º SaveClient and ClearInput
+
+const btnSalvar = document.querySelector("#salvar");
+
+const clearInput = () => {
+  const inputAll = document.querySelectorAll(".modal-field");
+  inputAll.forEach((item) => (item.value = ""));
+};
+
+const saveClient = () => {
+  const form = document.querySelector("#form");
+  if (form.reportValidity()) {
+    const client = {
+      nome: document.querySelector("#nome").value,
+      email: document.querySelector("#email").value,
+      telefone: document.querySelector("#celular").value,
+      cidade: document.querySelector("#cidade").value,
+    };
+    createClient(client);
+    clearInput();
+  }
+};
+
+btnSalvar.addEventListener("click", saveClient);

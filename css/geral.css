@@ -7,6 +7,7 @@
 :root {
   --primary-color: #ffba30;
   --secundary-color: #fff1cc;
+  --tertiary-color: rgb(255, 240, 90);
   --shadow-color: #c0c0c0;
   --text-color: #fff;
 }
@@ -17,7 +18,6 @@ body {
   flex-direction: column;
   font-family: "Raleway", sans-serif;
   position: relative;
-  background-color: white;
 }
 
 .titulo-container {
@@ -40,33 +40,16 @@ main {
   display: flex;
   flex-direction: column;
   width: 90%;
-  margin: 5vh auto;
+  margin: 3.5rem auto;
   box-shadow: 4px 4px 10px 6px var(--shadow-color);
-  background-color: rgb(255, 240, 90);
+  background-color: var(--tertiary-color);
   border-radius: 4px;
 }
 
 footer {
-  width: 100;
+  width: 100%;
   text-align: center;
-  font-weight: 200;
+  font-weight: bold;
   font-style: italic;
-  padding: 20px;
-}
-
-@media (max-width: 480px) {
-  header {
-    position: fixed;
-    width: 100%;
-  }
-  .header-title {
-    font-size: 1.5rem;
-  }
-
-  main {
-    padding: 0;
-    margin: 20px 0 0 0;
-    width: 100%;
-    box-shadow: none;
-  }
+  padding: 1rem;
 }
