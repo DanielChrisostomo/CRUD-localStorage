@@ -34,6 +34,20 @@ const getLocalStorage = () =>
 const setLocalStorage = (dbClient) =>
   localStorage.setItem("db_client", JSON.stringify(dbClient));
 
+const readClient = () => getLocalStorage();
+
+const updateClient = (index, client) => {
+  const dbClient = readClient();
+  dbClient[index] = client;
+  setLocalStorage(dbClient);
+};
+
+const deleteClient = (index) => {
+  const dbClient = readClient();
+  dbClient.splice(index, 1);
+  setLocalStorage(dbClient);
+};
+
 const createClient = (client) => {
   const dbClient = getLocalStorage();
   dbClient.push(client);
@@ -43,10 +57,37 @@ const createClient = (client) => {
 // 2º SaveClient and ClearInput
 
 const btnSalvar = document.querySelector("#salvar");
+const btnCancelar = document.querySelector("#cancelar");
 
 const clearInput = () => {
   const inputAll = document.querySelectorAll(".modal-field");
   inputAll.forEach((item) => (item.value = ""));
+};
+
+const clearTable = () => {
+  const rows = document.querySelectorAll("#tableClient>tbody tr");
+  rows.forEach((row) => row.parentNode.removeChild(row));
+};
+
+const createRow = (client) => {
+  const newRow = document.createElement("tr");
+  newRow.innerHTML = `
+  <td>${client.nome}</td>
+  <td>${client.email}</td>
+  <td>${client.telefone}</td>
+  <td>${client.cidade}</td>
+  <td>
+    <button type="button" class="button green">editar</button>
+    <button type="button" class="button red">excluir</button>
+  </td>`;
+  const tbody = document.querySelector("#tableClient>tbody");
+  tbody.appendChild(newRow);
+};
+
+const updateTable = () => {
+  const dbClient = readClient();
+  clearTable();
+  dbClient.forEach(createRow);
 };
 
 const saveClient = () => {
@@ -60,7 +101,14 @@ const saveClient = () => {
     };
     createClient(client);
     clearInput();
+    updateTable();
   }
 };
 
 btnSalvar.addEventListener("click", saveClient);
+btnCancelar.addEventListener("click", clearInput);
+
+// Edit Delete
+
+const tbody = document.querySelector("#tableClient>tbody");
+tbody.addEventListener("click", editDelete);
