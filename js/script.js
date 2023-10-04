@@ -21,13 +21,6 @@ container.addEventListener("click", fecharModal);
 
 // CRUD - Create Read Update Delete
 
-const tempClient = {
-  nome: "andre",
-  email: "andre.@gmail.com",
-  telefone: "981834409",
-  cidade: "Rio de Janeiro",
-};
-
 const getLocalStorage = () =>
   JSON.parse(localStorage.getItem("db_client")) ?? [];
 
@@ -54,7 +47,7 @@ const createClient = (client) => {
   setLocalStorage(dbClient);
 };
 
-// 2º SaveClient and ClearInput
+// SaveClient ClearInput UpdateTable
 
 const btnSalvar = document.querySelector("#salvar");
 const btnCancelar = document.querySelector("#cancelar");
@@ -69,7 +62,7 @@ const clearTable = () => {
   rows.forEach((row) => row.parentNode.removeChild(row));
 };
 
-const createRow = (client) => {
+const createRow = (client, index) => {
   const newRow = document.createElement("tr");
   newRow.innerHTML = `
   <td>${client.nome}</td>
@@ -77,8 +70,8 @@ const createRow = (client) => {
   <td>${client.telefone}</td>
   <td>${client.cidade}</td>
   <td>
-    <button type="button" class="button green">editar</button>
-    <button type="button" class="button red">excluir</button>
+    <button type="button" class="button green" id="edit-${index}">Editar</button>
+    <button type="button" class="button red" id="delete-${index}">Excluir</button>
   </td>`;
   const tbody = document.querySelector("#tableClient>tbody");
   tbody.appendChild(newRow);
@@ -99,9 +92,16 @@ const saveClient = () => {
       telefone: document.querySelector("#celular").value,
       cidade: document.querySelector("#cidade").value,
     };
-    createClient(client);
-    clearInput();
-    updateTable();
+    const index = document.getElementById("nome").dataset.index;
+    if (index == "new") {
+      createClient(client);
+      updateTable();
+      clearInput();
+    } else {
+      updateClient(index, client);
+      updateTable();
+      toggleModal();
+    }
   }
 };
 
@@ -109,6 +109,37 @@ btnSalvar.addEventListener("click", saveClient);
 btnCancelar.addEventListener("click", clearInput);
 
 // Edit Delete
+
+const fillFields = (client) => {
+  document.getElementById("nome").dataset.index = client.index;
+};
+
+const editClient = (index) => {
+  const client = readClient()[index];
+  client.index = index;
+  fillFields(client);
+  toggleModal();
+};
+
+const editDelete = (e) => {
+  if (e.target.type == "button") {
+    const [action, index] = e.target.id.split("-");
+    if (action == "edit") {
+      editClient(index);
+    } else {
+      const client = readClient()[index];
+      const response = confirm(
+        `Deseja realmente excluir o cliente ${client.nome}`
+      );
+      if (response) {
+        deleteClient(index);
+        updateTable();
+      }
+    }
+  }
+};
+
+updateTable();
 
 const tbody = document.querySelector("#tableClient>tbody");
 tbody.addEventListener("click", editDelete);
